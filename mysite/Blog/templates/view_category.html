@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>{% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>{{ category.title }}</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'Blog/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static 'Blog/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+  </head>
+
+  <body bgcolor="#eeebeb">
+  
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo">My Blog</a>
+		  <ul class="right hide-on-med-and-down">
+			<li><a href="get_price.html">Cryptocurrency Ticker</a></li>
+		  </ul>
+		  <ul class="right hide-on-med-and-down">
+			<li><a href="add_post.html">Add Post</a></li>
+		  </ul>
+		</div>
+    </nav>
+
+	<div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+			<h2>Posts from {{ category.title }}:</h2>
+		    {% if posts %}
+				<ul>
+				{% for post in posts %}
+				    <li><h5><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5></li>
+				{% endfor %}
+				</ul>
+			{% else %}
+				<h5>There are no posts.</h5>
+			{% endif %}
+		</div>
+	</div>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'Blog/js/materialize.js' %}"></script>
+    <script src="{% static 'Blog/js/init.js' %}"></script>
+
+</body>
+
+</html>

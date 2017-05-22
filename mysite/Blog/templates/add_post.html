@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>{% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>Add Post</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'Blog/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static 'Blog/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+  </head>
+
+    <body>
+        <div class="row">
+            <form id="form" class="col s6" method="post" action="submit.html">
+              {% csrf_token %}
+                <div class="row">
+                    <div class="input-field col s6 offset-s9">
+						<label for="title">Title: </label>
+						<input id="title" type="text" name="title">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 offset-s9">
+                        <label for="category">Category: </label>
+                        <input id="category" type="text" name="category">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 offset-s9">
+                        <label for="slug">Slug: </label>
+                        <input id="slug" type="text" name="slug">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 offset-s9">
+                        <label for="body">Body: </label>
+						<textarea id="body" class="materialize-textarea" type="text" name="body"></textarea>
+                    </div>
+                </div>
+                <div class="row" align="center">
+		            <div class="input-field col s6 offset-s9">
+		                <button class="btn waves-effect waves-light" type="submit" name="button">Save!</button>
+		            </div>
+		        </div>
+            </form>
+        </div>
+        
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'Blog/js/materialize.js' %}"></script>
+    <script src="{% static 'Blog/js/init.js' %}"></script>
+	<script>
+	    $(document).ready(function(){
+	    	$("button").click(function(){
+			    $.ajax({
+			        type: "POST",
+			        url: "submit.html/",
+			        data: {
+			            title: $(title).val(),
+			            category: $(category).val(),
+			            body: $(body).val(),
+			            slug: $(slug).val()
+			            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+			        },
+			        success: function (response) {
+			        	alert(response)
+			        },
+			        error: function (data) {
+			            alert(data.responseText);
+			        },
+			    })
+			})
+	    });
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Add Post</title>
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    </head>
+    <body>
+        <form action="submit.html" method="POST" id="form">
+			{% csrf_token %}
+			<label for="title">Title: </label>
+			<input id="title" type="text" name="title">
+			<label for="category">Category: </label>
+			<input id="category" type="text" name="category">
+			<label for="body">Body: </label>
+			<input id="body" type="text" name="body">
+		</form>
+		<button name="button "type="submit">Save!</button>
+		
+	   	<script>
+		    $(document).ready(function(){
+		    	$("button").click(function(){
+				    $.ajax({
+				        type: "POST",
+				        url: "submit.html/",
+				        data: {
+				            title: $(title).val(),
+				            category: $(category).val(),
+				            body: $(body).val(),
+				            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+				        },
+				        success: function (response) {
+				            alert("Post added!")
+				        },
+				        error: function (data) {
+				            alert(data.responseText);
+				        },
+				    })
+				})
+		    });
+		</script>
+    </body>
+</html>
